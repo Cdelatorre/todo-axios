@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { getTodoById, list } from "../../../services/TodoService";
+import Todo from "../Todo/Todo";
 
 class TodoList extends Component {
   state = {
@@ -27,6 +28,16 @@ class TodoList extends Component {
         });
       })
       .catch((err) => console.error(err));
+  };
+
+  onCompletedTask = (id) => {
+    this.setState((prevState) => {
+      return {
+        todos: prevState.todos.map((todo) =>
+          todo.id === id ? { ...todo, completed: true } : todo
+        ),
+      }; // pero el del id el completed a true}
+    });
   };
 
   componentDidMount() {
@@ -63,7 +74,13 @@ class TodoList extends Component {
           ) : (
             <ol>
               {this.state.todos.map((todo) => {
-                return <li key={todo.id}>{todo.title}</li>;
+                return (
+                  <Todo
+                    key={todo.id}
+                    {...todo}
+                    onCompleted={this.onCompletedTask}
+                  />
+                );
               })}
             </ol>
           )}
