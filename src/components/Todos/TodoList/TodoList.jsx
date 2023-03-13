@@ -34,7 +34,7 @@ class TodoList extends Component {
     this.setState((prevState) => {
       return {
         todos: prevState.todos.map((todo) =>
-          todo.id === id ? { ...todo, completed: true } : todo
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo
         ),
       }; // pero el del id el completed a true}
     });
